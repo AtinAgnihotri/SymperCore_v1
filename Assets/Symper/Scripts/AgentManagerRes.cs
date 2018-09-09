@@ -1,0 +1,30 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class AgentManagerRes : MonoBehaviour {
+
+    GameObject[] agents;
+
+	// Use this for initialization
+	void Start () {
+        agents = GameObject.FindGameObjectsWithTag("aiAgent");
+	}
+	
+	// Update is called once per frame
+	void Update () {
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hit;
+
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100))
+            {
+                foreach (GameObject a in agents)
+                {
+                    a.GetComponent<AIControl>().agent.SetDestination(hit.point);
+                   // a.GetComponent<AIControl>
+                }
+            }
+        }
+	}
+}
